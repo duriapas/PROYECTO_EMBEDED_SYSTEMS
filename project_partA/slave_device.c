@@ -12,6 +12,8 @@
  *  GLOBAL VARIABLES
  **********************************************************/
 
+//ESTE COMENTARIO ES UN TEST
+
 // last command message received 
 struct command_msg last_recv_command = {NO_CMD, 0};
 
