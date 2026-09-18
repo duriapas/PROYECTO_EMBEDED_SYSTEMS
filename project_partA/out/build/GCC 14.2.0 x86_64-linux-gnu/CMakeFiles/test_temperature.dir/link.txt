@@ -1,0 +1,1 @@
+/usr/bin/g++ -g -Wl,--dependency-file=CMakeFiles/test_temperature.dir/link.d CMakeFiles/test_temperature.dir/test_temperature.cpp.o CMakeFiles/test_temperature.dir/slave_device.c.o -o test_temperature  /usr/lib/x86_64-linux-gnu/libgtest.a

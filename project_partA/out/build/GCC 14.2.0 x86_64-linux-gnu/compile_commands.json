@@ -1,0 +1,56 @@
+[
+{
+  "directory": "/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu",
+  "command": "/usr/bin/g++   -g -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_temperature.dir/test_temperature.cpp.o -c /workspaces/project_partA/test_temperature.cpp",
+  "file": "/workspaces/project_partA/test_temperature.cpp",
+  "output": "CMakeFiles/test_temperature.dir/test_temperature.cpp.o"
+},
+{
+  "directory": "/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu",
+  "command": "/usr/bin/gcc   -g -std=gnu11 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_temperature.dir/slave_device.c.o -c /workspaces/project_partA/slave_device.c",
+  "file": "/workspaces/project_partA/slave_device.c",
+  "output": "CMakeFiles/test_temperature.dir/slave_device.c.o"
+},
+{
+  "directory": "/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu",
+  "command": "/usr/bin/g++   -g -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_position.dir/test_position.cpp.o -c /workspaces/project_partA/test_position.cpp",
+  "file": "/workspaces/project_partA/test_position.cpp",
+  "output": "CMakeFiles/test_position.dir/test_position.cpp.o"
+},
+{
+  "directory": "/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu",
+  "command": "/usr/bin/gcc   -g -std=gnu11 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_position.dir/slave_device.c.o -c /workspaces/project_partA/slave_device.c",
+  "file": "/workspaces/project_partA/slave_device.c",
+  "output": "CMakeFiles/test_position.dir/slave_device.c.o"
+},
+{
+  "directory": "/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu",
+  "command": "/usr/bin/g++   -g -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_control_temp.dir/test_control_temp.cpp.o -c /workspaces/project_partA/test_control_temp.cpp",
+  "file": "/workspaces/project_partA/test_control_temp.cpp",
+  "output": "CMakeFiles/test_control_temp.dir/test_control_temp.cpp.o"
+},
+{
+  "directory": "/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu",
+  "command": "/usr/bin/gcc   -g -std=gnu11 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_control_temp.dir/master_device.c.o -c /workspaces/project_partA/master_device.c",
+  "file": "/workspaces/project_partA/master_device.c",
+  "output": "CMakeFiles/test_control_temp.dir/master_device.c.o"
+},
+{
+  "directory": "/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu",
+  "command": "/usr/bin/g++   -g -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_protocol.dir/test_protocol.cpp.o -c /workspaces/project_partA/test_protocol.cpp",
+  "file": "/workspaces/project_partA/test_protocol.cpp",
+  "output": "CMakeFiles/test_protocol.dir/test_protocol.cpp.o"
+},
+{
+  "directory": "/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu",
+  "command": "/usr/bin/gcc   -g -std=gnu11 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_protocol.dir/master_device.c.o -c /workspaces/project_partA/master_device.c",
+  "file": "/workspaces/project_partA/master_device.c",
+  "output": "CMakeFiles/test_protocol.dir/master_device.c.o"
+},
+{
+  "directory": "/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu",
+  "command": "/usr/bin/gcc   -g -std=gnu11 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_protocol.dir/slave_device.c.o -c /workspaces/project_partA/slave_device.c",
+  "file": "/workspaces/project_partA/slave_device.c",
+  "output": "CMakeFiles/test_protocol.dir/slave_device.c.o"
+}
+]

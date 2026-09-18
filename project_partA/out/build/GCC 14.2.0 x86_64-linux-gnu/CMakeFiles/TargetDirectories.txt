@@ -1,0 +1,6 @@
+/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu/CMakeFiles/test_temperature.dir
+/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu/CMakeFiles/test_position.dir
+/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu/CMakeFiles/test_control_temp.dir
+/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu/CMakeFiles/test_protocol.dir
+/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu/CMakeFiles/edit_cache.dir
+/workspaces/project_partA/out/build/GCC 14.2.0 x86_64-linux-gnu/CMakeFiles/rebuild_cache.dir
