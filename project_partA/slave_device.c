@@ -69,14 +69,51 @@ void init_slave_state ()
  *********************************************************/
 void get_temperature ()
 {
+    double elapsed_time = getClock() - slave_status.time_temperature;
+
+    slave_status.time_temperature = getClock();
+
+    double power = HEAT_POWER_LOSS;
+
+    if (slave_status.heater_on){
+        power = power + HEATER_POWER;
+    }
+
+    if (slave_status.sunlight_on){
+        power = power + SUNLIGHT_POWER;
+    }
+
+    double energy = power * elapsed_time;
+
+    slave_status.temperature = (energy / (SHIP_SPECIFIC_HEAT * SHIP_MASS)) + slave_status.temperature;
 }
 
 /**********************************************************
  *  Function: get_position
- *********************************************************/
+ ***************)******************************************/
 
 void get_position ()
 {
+    double relative_time = getClock() - slave_status.orbit_init_time;
+    relative_time = fmod(relative_time,ORBIT_ROUND_TIME);
+
+    int orbit_first_index = floor(relative_time * (ORBIT_POINTS_ARRAY_SIZE /ORBIT_ROUND_TIME));
+
+    int orbit_second_index = (orbit_first_index+1)%ORBIT_POINTS_ARRAY_SIZE;
+
+    double orbit_offset_ratio = (relative_time / (ORBIT_ROUND_TIME /ORBIT_POINTS_ARRAY_SIZE)) - orbit_first_index;
+
+    slave_status.orbit_position[0] =
+    ORBIT_POINTS_ARRAY[orbit_first_index][0] * (1.0 - orbit_offset_ratio)
+    + ORBIT_POINTS_ARRAY[orbit_second_index][0] * orbit_offset_ratio;
+
+    slave_status.orbit_position[1] =
+    ORBIT_POINTS_ARRAY[orbit_first_index][1] * (1.0 - orbit_offset_ratio)
+    + ORBIT_POINTS_ARRAY[orbit_second_index][1] * orbit_offset_ratio;
+
+    slave_status.orbit_position[2] =
+    ORBIT_POINTS_ARRAY[orbit_first_index][2] * (1.0 - orbit_offset_ratio)
+    + ORBIT_POINTS_ARRAY[orbit_second_index][2] * orbit_offset_ratio;
 }
 
 /**********************************************************
@@ -85,7 +122,7 @@ void get_position ()
 
 void execute_command_and_create_response ()
 {
+    
 }        
-
 
 

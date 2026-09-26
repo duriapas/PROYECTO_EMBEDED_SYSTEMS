@@ -60,6 +60,8 @@ void control_temperature ()
  *********************************************************/
 void create_command_no_cmd ()
 {
+    ready_send_command.cmd = NO_CMD;
+    ready_send_command.set_heater = 0;
 }
 
 
@@ -68,6 +70,8 @@ void create_command_no_cmd ()
  *********************************************************/
 void create_command_set_heat_cmd ()
 {
+    ready_send_command.cmd = SET_HEAT_CMD;
+    ready_send_command.set_heater = master_status.heater_on;
 }
 
 /**********************************************************
@@ -75,6 +79,8 @@ void create_command_set_heat_cmd ()
  *********************************************************/
 void create_command_read_sun_cmd ()
 {
+    ready_send_command.cmd = READ_SUN_CMD;
+    ready_send_command.set_heater = 0;
 }
 
 /**********************************************************
@@ -82,6 +88,8 @@ void create_command_read_sun_cmd ()
  *********************************************************/
 void create_command_read_temp_cmd ()
 {
+    ready_send_command.cmd = READ_TEMP_CMD;
+    ready_send_command.set_heater = 0;
 }
 
 /**********************************************************
@@ -89,6 +97,8 @@ void create_command_read_temp_cmd ()
  *********************************************************/
 void create_command_read_pos_cmd ()
 {
+    ready_send_command.cmd = READ_POS_CMD;
+    ready_send_command.set_heater = 0;
 }
 
 
@@ -99,6 +109,9 @@ void create_command_read_pos_cmd ()
  *********************************************************/
 void process_response_no_cmd ()
 {
+    if(last_recv_response.error){
+        printf("ERROR: Executing NO_CMD message");
+    }
 }
  
 /**********************************************************
@@ -106,6 +119,9 @@ void process_response_no_cmd ()
  *********************************************************/
 void process_response_set_heat_cmd ()
 {
+    if(last_recv_response.error){
+        printf("ERROR: Executing SET_HEAT_CMD message");
+    }
 }
 
 /**********************************************************
@@ -113,6 +129,11 @@ void process_response_set_heat_cmd ()
  *********************************************************/
 void process_response_read_sun_cmd ()
 {
+    if(last_recv_response.error){
+        printf("ERROR: Executing READ_SUN_CMD message");
+    } else { 
+        master_status.sunlight_on = last_recv_response.sunlight_on;
+    }
 }
 
 /**********************************************************
@@ -120,10 +141,22 @@ void process_response_read_sun_cmd ()
  *********************************************************/
 void process_response_read_temp_cmd ()
 {
+    if(last_recv_response.error){
+        printf("ERROR: Executing READ_TEMP_CMD message");
+    } else { 
+        master_status.temperature = last_recv_response.temperature;
+    }
 }
 /**********************************************************
  *  Function: process_response_read_pos_cmd
  *********************************************************/
 void process_response_read_pos_cmd ()
 {
+    if(last_recv_response.error){
+        printf("ERROR: Executing READ_POS_CMD message");
+    } else { 
+        master_status.orbit_position[0] = last_recv_response.orbit_position[0];
+        master_status.orbit_position[1] = last_recv_response.orbit_position[1];
+        master_status.orbit_position[2] = last_recv_response.orbit_position[2];
+    }
 }
