@@ -29,6 +29,53 @@ TEST(test_control_temperature, basic)
     ASSERT_EQ(0, master_status.heater_on);
 }
 
+
+TEST(test_control_temperature, Above_average_turns_heater_off)
+{
+
+    // init master state
+    init_master_state();
+    master_status.temperature = 45;
+    master_status.heater_on   = 1;
+
+    control_temperature();
+    ASSERT_EQ(0, master_status.heater_on);
+
+}
+
+TEST(test_control_temperature, Below_average_turns_heater_on)
+{
+
+    // init master state
+    init_master_state();
+    master_status.temperature = 35;
+    master_status.heater_on   = 0;
+
+    control_temperature();
+    ASSERT_EQ(1, master_status.heater_on);
+
+}
+
+TEST(test_control_temperature, heater_already_correct)
+{
+    // below 40 already on stays on
+    init_master_state();
+    master_status.temperature = 35;
+    master_status.heater_on   = 1;
+
+    control_temperature();
+    ASSERT_EQ(1, master_status.heater_on);
+
+    // above 40 already off stays off
+    init_master_state();
+    master_status.temperature = 45;
+    master_status.heater_on   = 0;
+
+    control_temperature();
+    ASSERT_EQ(0, master_status.heater_on);
+}
+
+
 /**********************************************************
  *  Funtion: main
  *********************************************************/
