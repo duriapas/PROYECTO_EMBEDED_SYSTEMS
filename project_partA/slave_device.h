@@ -22,7 +22,7 @@ static const double SHIP_MASS = 10.0; // Kg
 static const double HEATER_POWER = 150.0; // J/sec
 
 // Represents the energy the sun light can emit towards the satellite every second
-static const double SUNLIGHT_POWER = 50.0; // J/sec
+static const double SUNLIGHT_POWER = 0.9; // J/sec
 
 // Represents the energy the satellite losses every second
 static const double HEAT_POWER_LOSS = -100.0; // J/sec

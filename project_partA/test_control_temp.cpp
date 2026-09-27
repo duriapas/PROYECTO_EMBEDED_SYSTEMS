@@ -10,7 +10,7 @@ extern "C" {
 }
 
 /**********************************************************
- *  Test: control_temperature -> basic
+ *  Test: control_temperature 
  *********************************************************/
 
 TEST(test_control_temperature, basic) 
