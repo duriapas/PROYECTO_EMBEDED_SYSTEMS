@@ -123,7 +123,46 @@ void get_position ()
 
 void execute_command_and_create_response ()
 {
-    
+    // check no cmd msg and process it
+    if (last_recv_command.cmd == NO_CMD) {
+        //set cmd and no error for response message
+        ready_send_response.cmd = NO_CMD;
+        ready_send_response.error = 0;
+
+    // check set heater msg and process it
+    } else if (last_recv_command.cmd == SET_HEAT_CMD) {
+        //set cmd and no error for response message
+        ready_send_response.cmd = SET_HEAT_CMD;
+        ready_send_response.error = 0;
+        //update heater value on slave status
+        slave_status.heater_on = last_recv_command.set_heater;
+
+    // check read sunlight msg and process it
+    } else if (last_recv_command.cmd == READ_SUN_CMD) {
+        //set cmd and no error for response message
+        ready_send_response.cmd = READ_SUN_CMD;
+        ready_send_response.error = 0;
+        //set sunlight sensor value on response message
+        ready_send_response.sunlight_on = slave_status.sunlight_on;
+
+    // check read temperature msg and process it
+    } else if (last_recv_command.cmd == READ_TEMP_CMD) {
+        //set cmd and no error for response message
+        ready_send_response.cmd = READ_TEMP_CMD;
+        ready_send_response.error = 0;
+        //set temperature value on response message
+        ready_send_response.temperature = slave_status.temperature;
+
+    // check read position msg and process it
+    } else if (last_recv_command.cmd == READ_POS_CMD) {
+        //set cmd and no error for response message
+        ready_send_response.cmd = READ_POS_CMD;
+        ready_send_response.error = 0;
+        //set orbit position value on response message
+        ready_send_response.orbit_position[0] = slave_status.orbit_position[0];
+        ready_send_response.orbit_position[1] = slave_status.orbit_position[1];
+        ready_send_response.orbit_position[2] = slave_status.orbit_position[2];
+    }   
 }        
 
 
