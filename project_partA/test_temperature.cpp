@@ -77,7 +77,6 @@ TEST(test_get_temperature, heater_on_sunlight_on)
     printf("temperature: %f\n", slave_status.temperature);
     
     EXPECT_NEAR(86.5556, slave_status.temperature, 0.05);
-    //EXPECT_NEAR(getClock(), slave_status.time_temperature, 0.005);
 }
 
 TEST(test_get_temperature, heat_then_cool)

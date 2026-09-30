@@ -43,16 +43,24 @@ TEST(test_control_temperature, Above_average_turns_heater_off)
 
 }
 
-TEST(test_control_temperature, Below_average_turns_heater_on)
+TEST(test_control_temperature, Just_Average)
 {
 
-    // init master state
+    // With heater off
     init_master_state();
-    master_status.temperature = 35;
+    master_status.temperature = 40;
     master_status.heater_on   = 0;
 
     control_temperature();
-    ASSERT_EQ(1, master_status.heater_on);
+    ASSERT_EQ(0, master_status.heater_on);
+
+    // With heater on
+    init_master_state();
+    master_status.temperature = 40;
+    master_status.heater_on   = 1;
+
+    control_temperature();
+    ASSERT_EQ(0, master_status.heater_on);
 
 }
 
