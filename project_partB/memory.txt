@@ -1,0 +1,89 @@
+MEMORIA DEL PROYECTO 1B - SUBSISTEMA ARDUINO
+
+1. Objetivo
+
+El Arduino esclavo mantiene la temperatura y la posición orbital simuladas,
+lee el sensor de luz, acciona el LED calefactor y atiende órdenes del Arduino
+maestro mediante mensajes binarios con paridad XOR. La parte A se reutiliza
+para los modelos de temperatura, posición y protocolo.
+
+2. Asignación de hardware
+
+- Sensor de luz (divisor con LDR): entrada analógica A3.
+- LED calefactor: salida digital 13.
+- En el esclavo, UART hardware a 9600 baudios: RX 0, TX 1.
+- En ambas placas, UART hardware a 9600 baudios: RX 0, TX 1.
+- Conexiones serie cruzadas: maestro D1 (TX) -> esclavo D0 (RX);
+  esclavo D1 (TX) -> maestro D0 (RX); unir también las tierras (GND).
+
+El sketch maestro usa el mismo puerto serie hardware para el protocolo y para
+mostrar el resultado en el monitor serie, siguiendo el esquema del enunciado.
+El umbral inicial del LDR es 500 (escala analógica 0-1023) y debe ajustarse si
+la simulación o el divisor real producen otro rango.
+
+3. Diseño del planificador cíclico
+
+Se usa un planificador cooperativo con ranura menor de 50 ms y ciclo mayor de
+200 ms, formado por cuatro ranuras. Las liberaciones se mantienen ancladas a
+`millis()` absoluto para evitar que el tiempo de ejecución de una iteración se
+acumule como deriva. La espera hasta la siguiente liberación usa pausas de 1 ms.
+
+Las tareas se agrupan por periodo: Task_C (sensor y calefactor, 50 ms),
+Task_B (posición y temperatura, 100 ms) y Task_A (comunicación y ejecución de
+comandos, 200 ms).
+
+Ranura | Instante del ciclo mayor | Tareas ejecutadas
+-------|--------------------------|------------------
+0      | 0 ms                     | Task_C y Task_B
+1      | 50 ms                    | Task_C y Task_A
+2      | 100 ms                   | Task_C y Task_B
+3      | 150 ms                   | Task_C
+
+El ciclo se repite cada 200 ms. `comm_server()` solo habilita la ejecución de
+la orden cuando ha recibido el mensaje completo y su paridad es correcta. La
+respuesta preparada se envía en la siguiente activación del servicio de
+comunicación.
+
+4. Validación analítica de periodos y carga
+
+El enunciado limita a 10 ms la ejecución de cada función. Con ese límite, la
+carga máxima por ranura es:
+
+Ranura 0: 2 funciones de 50 ms + 2 funciones de 100 ms = 40 ms de 50 ms.
+Ranura 1: 2 funciones de 50 ms + 2 funciones de 200 ms = 40 ms de 50 ms.
+Ranura 2: 2 funciones de 50 ms + 2 funciones de 100 ms = 40 ms de 50 ms.
+Ranura 3: 2 funciones de 50 ms = 20 ms de 50 ms.
+
+En un ciclo mayor de 200 ms se ejecutan ocho instancias de funciones de 50 ms,
+cuatro instancias de funciones de 100 ms y dos instancias de funciones de
+200 ms. La cota de trabajo es (8+4+2)*10 = 140 ms por cada 200 ms, es decir,
+70% de utilización. La ranura más cargada usa como máximo 40 ms, menor que
+los 50 ms disponibles; quedan al menos 10 ms de margen por ranura bajo la
+hipótesis de ejecución máxima indicada por el enunciado.
+
+Los periodos resultantes son 50 ms para sensor/calefactor, 100 ms para
+posición/temperatura y 200 ms para comunicación/procesamiento de órdenes. Por
+tanto, cada periodo no supera su plazo máximo. Esta comprobación es analítica;
+la cota de 10 ms por función debe confirmarse además midiendo la ejecución en
+el Arduino/Tinkercad de la entrega.
+
+5. Pruebas funcionales previstas
+
+1. Enviar NO_CMD y comprobar respuesta sin error.
+2. Alternar SET_HEAT_CMD y observar el LED del pin 13.
+3. Variar la iluminación del LDR y comprobar READ_SUN_CMD.
+4. Consultar READ_TEMP_CMD durante varios ciclos, con calefactor y luz en
+   distintos estados.
+5. Consultar READ_POS_CMD y comprobar que las coordenadas cambian con el
+   tiempo y vuelven al inicio al completar la órbita simulada.
+6. Enviar un mensaje con paridad incorrecta y comprobar que se informa error.
+
+El sketch maestro recorre automáticamente NO_CMD, SET_HEAT_CMD, READ_SUN_CMD,
+READ_TEMP_CMD y READ_POS_CMD; muestra las respuestas en el monitor serie USB.
+
+6. Pendientes de la entrega física
+
+La grabación del montaje y ejecución en Tinkercad debe realizarse con las
+placas y el circuito. El archivo de autores debe incluir los nombres y NIAs
+reales del equipo; no se han inferido porque no aparecen en los archivos del
+proyecto disponibles.
