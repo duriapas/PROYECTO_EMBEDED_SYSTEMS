@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/...
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Run i386 binary in QEMU",
+        "type": "node-terminal",
+        "request": "launch",
+        "command": "qemu-system-i386 -kernel ${command:cmake.launchTargetPath}     -display curses",
+        "cwd": "${workspaceFolder}"
+      },
+      {
+        "name": "Run i386 binary in QEMU with Arduino",
+        "type": "node-terminal",
+        "request": "launch",
+        "command": "qemu-system-i386 --kernel ${command:cmake.launchTargetPath}     --display curses --serial /dev/ttyUSB0",
+        "cwd": "${workspaceFolder}"
+      }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "rtems5-i386-configure",
+            "displayName": "RTEMS i386 Toolchain",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/toolchain-rtems5-i386.cmake",
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "rtems5-i386-build",
+            "configurePreset": "rtems5-i386-configure"
+        }
+    ]
+}      

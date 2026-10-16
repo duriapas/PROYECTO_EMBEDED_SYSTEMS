@@ -1,0 +1,44 @@
+#
+# RTEMS Tools for 5.
+#
+
+#
+# The RTEMS Tools version is set to the RSB version or the RTEMS version.
+#
+%if %{rsb_released}
+ %define rtems_tools_version %{rsb_version}
+ %define rtems_tools_source rtems-tools-%{rtems_tools_version}
+ %define rtems_tools_ext xz
+%else
+ %define rtems_tools_version 04d6aa3ada572c1fd7352e3a95775824679c0aa0
+ %define rtems_tools_ext bz2
+%endif
+
+%define rtems_tools_source rtems-tools-%{rtems_tools_version}
+%source set rtems-tools https://gitlab.rtems.org/rtems/tools/rtems-tools/-/archive/%{rtems_tools_version}/%{rtems_tools_source}.tar.%{rtems_tools_ext}
+%hash sha512 %{rtems_tools_source}.tar.bz2 \
+         7GFaovivW18aqni5qjyfJqk4CxnsF3tpA10AMCy1VMIMcc69LZX/tjuU+SX/apIdeTED992T5zX8zAI8YIGdqQ==
+
+#
+# Optionally enable/disable building the RTEMS Tools via the command line.
+#
+%if %{defined with_rtems_tools}
+ %define rtems_tools_build 1
+%endif
+%if %{defined without_rtems_tools}
+ %define rtems_tools_build 0
+%endif
+
+#
+# Build by default.
+#
+%if ! %{defined rtems_tools_build}
+ %define rtems_tools_build 1
+%endif
+
+%if %{rtems_tools_build}
+ #
+ # The RTEMS Tools build instructions.
+ #
+ %include tools/rtems-tools-common-1.cfg
+%endif

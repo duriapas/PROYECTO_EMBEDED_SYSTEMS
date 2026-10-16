@@ -1,0 +1,12 @@
+#
+# All RTEMS Graphics Build Sets
+#
+
+graphics/freetype2
+graphics/libjpeg
+graphics/libpng
+graphics/libtiff
+graphics/t1lib
+
+# Remove as microwindows does not build. Please fix and provide a patch.
+# graphics/microwindows

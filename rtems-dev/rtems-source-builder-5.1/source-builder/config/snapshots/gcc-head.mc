@@ -1,0 +1,13 @@
+[gcc-snapshot]
+GCC_Version: none, override, 'git-head'
+Source0:     none, override, 'git://gcc.gnu.org/git/gcc.git?branch=master?pull'
+Patch0:      none, undefine, ''
+Patch1:      none, undefine, ''
+Patch2:      none, undefine, ''
+Patch3:      none, undefine, ''
+Patch4:      none, undefine, ''
+Patch5:      none, undefine, ''
+Patch6:      none, undefine, ''
+Patch7:      none, undefine, ''
+Patch8:      none, undefine, ''
+Patch9:      none, undefine, ''
